@@ -1,0 +1,88 @@
+/* HEADER */
+.header {
+  height: 56px;
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+  color: var(--white-color);
+  align-items: center;
+}
+
+.header__left {
+  display: flex;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.header__left-icon {
+  padding-right: 10px;
+}
+
+.header__right {
+  display: flex;
+  font-size: 25px;
+  align-items: center;
+}
+
+.header__right-item {
+  margin: 0 10px;
+}
+
+.header__right-search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--white-color);
+  min-width: 320px;
+  padding: 6px 0 6px 8px;
+  border-radius: 4px;
+  height: 38px;
+  line-height: 38px;
+}
+
+.search__icon {
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 38px;
+  height: 38px;
+  color: var(--primary-color);
+  font-size: 20px;
+  text-align: center;
+}
+
+.search__input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  height: 100%;
+  flex: 1;
+}
+
+.search__icon:hover {
+  cursor: pointer;
+}
+
+.header__notification,
+.header__avt {
+  margin: 10px;
+  cursor: pointer;
+}
+
+.header__notification:hover,
+.header__avt:hover {
+  opacity: 0.85;
+  transition: all 0.25s;
+}
+
+/* CONTAINER */
+.bloodbankContent {
+  background-color: #ccc;
+  height: 1000px;
+}
+
+/* FOOTER */
+.footer {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
