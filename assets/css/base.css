@@ -127,6 +127,7 @@ table {
 :root {
   --primary-color: #d61e05;
   --white-color: #fff;
+  --blue-color: #005596;
   --header-height: 64px;
   --font-size-small: 14px;
   --font-size-primary: 16px;
@@ -134,4 +135,9 @@ table {
 
 html {
   font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background-color: var(--blue-color);
+  color: var(--white-color);
 }
