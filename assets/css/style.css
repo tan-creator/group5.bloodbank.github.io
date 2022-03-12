@@ -213,13 +213,18 @@
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
   border-top: 15px solid var(--primary-color);
-  position: absolute;
+  /* position: absolute; */
 }
 
 .bloodInventory__list strong {
   color: var(--primary-color);
   font-size: 50px;
   font-weight: 700;
+}
+
+.bloodInventory__list-item--link {
+  position: relative;
+  cursor: pointer;
 }
 
 .bloodInventory__list-item--link:hover {
@@ -260,6 +265,10 @@
   color: var(--blue-color);
   padding-bottom: 10px;
   font-weight: 600;
+}
+
+.descriptionByTypeBlood__item h2 span {
+  color: var(--primary-color);
 }
 
 .descriptionByTypeBlood__item ul {
@@ -329,6 +338,11 @@
 .footer__bottom-social--item {
   margin: 0 10px;
   cursor: pointer;
+}
+
+.footer__bottom-social--item:hover {
+  opacity: 0.8;
+  transition: all 0.25s;
 }
 
 .footer__bottom-copyright {
