@@ -127,6 +127,7 @@ table {
 :root {
   --primary-color: #d61e05;
   --white-color: #fff;
+  --black-color: #353940;
   --blue-color: #005596;
   --header-height: 64px;
   --font-size-small: 14px;
