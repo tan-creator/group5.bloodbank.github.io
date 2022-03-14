@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <!-- FONT -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./register.css">
+</head>
+<body>
+    <div class="main-login-register">
+        <div id="form-register" class="login-register__container">
+            <div class="login-register__content">
+                <a href="../index.html" class="login-register__backBtn">
+                    <i class="login-register__backBtn-icon fa-solid fa-angle-left"></i>
+                </a>
+                <div class="login-register__content-logo"><i class="login__content-logo--icon fa fa-plus-square"></i></div>
+                <div class="login-register__content-title">Register an account</div>
+
+                <div class="login-register__content-main">
+                    <div class="main__input">
+                        <div class="form__group">
+                            <div class="main__input-title main__input-yourname">Full name</div>
+                            <div class="main__input-item">
+                                <input id="fullname" name="fullname" type="text" class="main__input-username" placeholder="User name">
+                            </div>
+                            <span class="form__group-hint"></span>
+                        </div>
+                        <div class="form__group">
+                            <div class="main__input-title main__input-youremail">Email</div>
+                            <div class="main__input-item">
+                                <input id="email" name="email" type="text" class="main__input-username" placeholder="Email address">
+                            </div>
+                            <span class="form__group-hint"></span>
+                        </div>
+                        <div class="form__group">
+                            <div class="main__input-item">
+                                <input id="password" name="password"type="password" class="main__input-password" placeholder="Password">
+                            </div>
+                            <span class="form__group-hint"></span>
+                        </div>
+                        <div class="form__group">
+                            <div class="main__input-item">
+                                <input id="password_confirmation" name="password_confirmation" type="password" class="main__input-password" placeholder="Confirm password">
+                            </div>
+                            <span class="form__group-hint"></span>
+                        </div>
+                        <button class="main__input-btn">REGISTER</button>
+                    </div>
+                </div>
+
+                <div class="main__bottom">
+                    <div class="main__input-dontHaveAcc">
+                        <p>Do you have account?</p>
+                        <a href="../login/login.html" class="main__input-dontHaveAcc--link">Login</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../Validator/validator.js"></script>
+
+    <script>
+        Validator({
+            form: '#form-register',
+            formGroupSelector: '.form__group',
+            errorSelector: '.form__group-hint',
+            inputItem: '.main__input-item',
+            submitBtn: '.main__input-btn',
+            rules: [
+                Validator.isRequired('#fullname', 'Please enter your full name'),
+                Validator.isRequired('#email', 'Please enter your email'),
+                Validator.isEmail('#email'),
+                Validator.isRequired('#password', 'Please enter your password'),
+                Validator.minLength('#password',6),
+                Validator.isRequired('#password_confirmation'),
+                Validator.isConfirmed('#password_confirmation', () => document.querySelector('#form-register #password').value,
+                'Confirm password is incorrect'),
+            ],
+            onSubmit: function(data) {
+                console.log(data);
+            }
+        })
+    </script>
+</body>
+</html>
