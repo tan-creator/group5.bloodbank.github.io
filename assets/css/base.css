@@ -131,7 +131,9 @@ table {
   --white-color: #fff;
   --black-color: #353940;
   --blue-color: #005596;
+  --blue-light-color: #1473e6;
   --gray-color: #757575;
+  --gray-light-color: #e8ebed;
   --header-height: 64px;
   --font-size-small: 14px;
   --font-size-primary: 16px;
