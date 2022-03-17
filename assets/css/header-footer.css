@@ -18,6 +18,12 @@
   cursor: pointer;
 }
 
+.header__left a {
+  text-decoration: none;
+  display: flex;
+  color: var(--primary-color);
+}
+
 .header__left-logo {
   padding-right: 10px;
 }

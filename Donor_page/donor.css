@@ -246,3 +246,147 @@
   font-size: 20px;
   text-shadow: 0px 5px 10px var(--black-color);
 }
+
+/* Storage */
+.storage {
+  padding-left: 15px;
+}
+
+.storage__list {
+  width: 100%;
+}
+
+.storage__list-item {
+  color: var(--white-color);
+  height: 200px;
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.storage__list-item img {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(80%);
+}
+
+.storage__list-item--desc {
+  position: absolute;
+  top: 0;
+  color: var(--white-color);
+  inset: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  text-shadow: 1px 1px 2px rgb(226, 121, 121), 0 0 1em rgb(236, 135, 135),
+    0 0 0.2em rgb(240, 124, 124);
+}
+
+.item__bloodType {
+  font-size: 75px;
+}
+
+.storage__list-item--amount {
+  font-size: 25px;
+}
+
+/* FORM DONATE */
+.donate {
+}
+
+.donate__statistical {
+  margin-bottom: 50px;
+}
+
+.statistical__item {
+  height: 300px;
+}
+
+.statistical__item-background,
+.statistical__item-background img {
+  width: 100%;
+  height: 100%;
+}
+
+.statistical__item-background {
+  position: relative;
+}
+
+.statistical__item-background img {
+  background-repeat: no-repeat;
+  object-fit: cover;
+  border-radius: 6px;
+  filter: brightness(80%);
+}
+
+.statistical__item--content {
+  position: absolute;
+  top: 0;
+  padding: 20px;
+  color: var(--white-color);
+  text-shadow: 1px 1px 2px rgb(133, 132, 132), 0 0 1em rgb(138, 138, 138),
+    0 0 0.2em rgb(146, 145, 145);
+}
+
+.statistical__item--content h2 {
+  font-size: 70px;
+  margin-bottom: 4px;
+}
+
+.statistical__item--content h3 {
+  font-size: 25px;
+  margin-bottom: 4px;
+}
+
+.statistical__item--content p {
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+/* Donate Form */
+.donate__form {
+  border-radius: 10px;
+  overflow: hidden;
+  width: 690px;
+  margin: 0 auto;
+}
+
+.form__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 65px;
+  background: var(--form-primary-color);
+  text-align: center;
+  font-size: 40px;
+  color: var(--white-color);
+}
+
+.donate__form-group {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.donate__form-group label {
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.donate__form-group input,
+.donate__form-group select {
+  border-radius: 6px;
+  height: 38px;
+  border: 1px solid var(--form-primary-color);
+  outline: none;
+}
+
+.list__item {
+  display: flex;
+  align-items: center;
+}
+
+.list__item input {
+  accent-color: var(--form-primary-color);
+}

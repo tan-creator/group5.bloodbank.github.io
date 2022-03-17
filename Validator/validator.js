@@ -99,14 +99,10 @@ function Validator(options) {
             inputElement,
             options.formGroupSelector
           ).querySelector(options.errorSelector);
-          // inputElement.parentElement.parentElement.querySelector(
-          //   options.errorSelector
-          // );
           hintElement.innerHTML = "";
           getParent(inputElement, options.inputItem).classList.remove(
             "invalid"
           );
-          // inputElement.parentElement.classList.remove("invalid");
         };
       }
     });
