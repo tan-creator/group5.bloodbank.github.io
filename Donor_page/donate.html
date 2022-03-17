@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Donations</title>
     <link rel="icon" href="../assets/img/icon-tabbar.png">
 
     <!-- BOOTSTRAP -->
@@ -157,7 +157,7 @@
                     <div class="donate__form-group col-12">
                         <label for="" class="form__title">Blood Group</label>
                         <select name="bloodgroup" id="bloodgroup" class="bloodgroup">
-                            <option value="0">Select Option</option>
+                            <option value="">Select Blood Type</option>
                             <option value="O+">O+</option>
                             <option value="O-">O-</option>
                             <option value="A+">A+</option>
@@ -166,6 +166,7 @@
                             <option value="B-">B-</option>
                             <option value="AB+">AB+</option>
                             <option value="AB-">AB-</option>
+                            <option value="Unknown">Unknown</option>
                         </select>
                         <span></span>
                     </div>
@@ -176,49 +177,45 @@
                     </div>
                     <div class="donate__form-group col-12">
                         <label for="" class="form__title">Have you done a blood donation before?</label>
-                        <ul class="list">
-                            <li class="list__item">
-                                <input type="radio" class="radio-btn" name="choice-donation-before" id="a-opt" />
-                                <label for="a-opt" class="label">Yes</label>
-                              </li>
-                              <li class="list__item">
-                                <input type="radio" class="radio-btn" name="choice-donation-before" id="a-opt" />
-                                <label for="a-opt" class="label">No</label>
-                              </li>
-                        </ul>
+                        <div class="radio">
+                            <input type="radio" id="donated-yes" value="yes" name="donated"/>
+                            <label for="donated-yes">Yes</label>
+                        </div>
+                        <div class="radio">
+                            <input type="radio" id="donated-no" value="no" name="donated"/>
+                            <label for="donated-no">No</label>
+                        </div>
                         <span></span>
                     </div>
                     <div class="donate__form-group col-12">
                         <label for="" class="form__title">Have you had any disease?</label>
-                        <ul class="list">
-                            <li class="list__item">
-                                <input type="radio" class="radio-btn" name="choice-disease" id="a-opt" />
-                                <label for="a-opt" class="label">Yes</label>
-                              </li>
-                              <li class="list__item">
-                                <input type="radio" class="radio-btn" name="choice-disease" id="a-opt" />
-                                <label for="a-opt" class="label">No</label>
-                              </li>
-                        </ul>
+                        <div class="radio">
+                            <input type="radio" id="disease-yes" value="yes" name="disease"/>
+                            <label for="disease-yes">Yes</label>
+                        </div>
+                        <div class="radio">
+                            <input type="radio" id="disease-no" value="no" name="disease"/>
+                            <label for="disease-no">No</label>
+                        </div>
                         <span></span>
                     </div>
                     <div class="donate__form-group col-12">
                         <label for="" class="form__title">Do you have any allergies?</label>
-                        <ul class="list">
-                            <li class="list__item">
-                                <input type="radio" class="radio-btn" name="choice-allergies" id="a-opt" />
-                                <label for="a-opt" class="label">Yes</label>
-                              </li>
-                              <li class="list__item">
-                                <input type="radio" class="radio-btn" name="choice-allergies" id="a-opt" />
-                                <label for="a-opt" class="label">No</label>
-                              </li>
-                        </ul>
+                        <div class="radio">
+                            <input type="radio" id="allergies-yes" value="yes" name="allergies"/>
+                            <label for="allergies-yes">Yes</label>
+                        </div>
+                        <div class="radio">
+                            <input type="radio" id="allergies-no" value="no" name="allergies"/>
+                            <label for="allergies-no">No</label>
+                        </div>
                         <span></span>
                     </div>
+
+                    <button class="donate__form-submit">Submit</button>
                 </div>
             </div>
-            
+        
         </div>
 
         <!-- FOOTER -->
@@ -283,6 +280,34 @@
      <!-- BOOTSTRAP 4 JS -->
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script> 
 
+    <script src="../Validator/validator.js"></script>
+
     <script src="./donor.js"></script>
+
+    <script>
+        Validator({
+            form: '.donate__form',
+            formGroupSelector: '.donate__form-group',
+            inputItem: '.donate__form-group input',
+            errorSelector: '.donate__form-group span',
+            submitBtn: '.donate__form-submit',
+            rules: [
+                Validator.isRequired('#firstname'),
+                Validator.isRequired('#lastname'),
+                Validator.isEmail('#email'),
+                Validator.isRequired('#phonenumber'),
+                Validator.isRequired('#address'),
+                Validator.isRequired('#bloodgroup'),
+                Validator.isRequired('#occupation'),
+                Validator.isRequired('input[name="donated"]'),
+                Validator.isRequired('input[name="disease"]'),
+                Validator.isRequired('input[name="allergies"]'),
+            ],
+            onSubmit: function(data) {
+                console.log(data);
+            }
+        })
+    </script>
+
 </body>
 </html>

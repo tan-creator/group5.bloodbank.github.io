@@ -348,8 +348,11 @@
 .donate__form {
   border-radius: 10px;
   overflow: hidden;
-  width: 690px;
+  width: 720px;
   margin: 0 auto;
+  border: 1px solid var(--gray-color);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 50px;
 }
 
 .form__header {
@@ -357,7 +360,7 @@
   align-items: center;
   justify-content: center;
   height: 65px;
-  background: var(--form-primary-color);
+  background: var(--blue-light-color);
   text-align: center;
   font-size: 40px;
   color: var(--white-color);
@@ -378,8 +381,18 @@
 .donate__form-group select {
   border-radius: 6px;
   height: 38px;
-  border: 1px solid var(--form-primary-color);
+  border: 1px solid var(--blue-light-color);
   outline: none;
+}
+
+.donate__form-group input.invalid {
+  border: 1px solid var(--primary-color);
+}
+
+.donate__form-group span {
+  color: var(--primary-color);
+  font-size: 14px;
+  padding-top: 4px;
 }
 
 .list__item {
@@ -389,4 +402,14 @@
 
 .list__item input {
   accent-color: var(--form-primary-color);
+}
+
+.donate__form-submit {
+  padding: 12px 40px;
+  margin: 20px auto;
+}
+
+.radio {
+  display: flex;
+  align-items: center;
 }

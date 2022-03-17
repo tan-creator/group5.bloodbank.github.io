@@ -276,7 +276,8 @@ html {
   padding: 12px 20px;
 }
 
-.main__input-btn {
+.main__input-btn,
+.donate__form-submit {
   margin-top: 12px;
   padding: 12px 20px;
   border-radius: 4px;
