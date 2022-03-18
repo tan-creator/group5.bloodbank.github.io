@@ -3,6 +3,7 @@ const $$ = document.querySelectorAll.bind(document);
 
 // KHAI BÁO BIẾN
 const bloodInventory = $$(".bloodInventory__list-item");
+const footerElement = $(".footer");
 
 const app = {
   // Hàm Render ra giao diện

@@ -36,6 +36,7 @@
   display: flex;
   font-size: 25px;
   align-items: center;
+  color: var(--gray-color);
 }
 
 .header__right-item {
@@ -52,7 +53,7 @@
   border-radius: 4px;
   height: 38px;
   line-height: 38px;
-  border: 1px solid var(--primary-color);
+  border: 1px solid var(--gray-color);
 }
 
 .search__icon {
@@ -61,7 +62,7 @@
   right: 0;
   width: 38px;
   height: 38px;
-  color: var(--primary-color);
+  color: var(--gray-color);
   font-size: 20px;
   text-align: center;
 }
@@ -92,7 +93,7 @@
 .header__notification:hover,
 .header__avt:hover,
 .header__login:hover {
-  opacity: 0.8;
+  color: var(--gray-dark-color);
   transition: all 0.25s;
 }
 
@@ -125,7 +126,7 @@
 .footer {
   position: relative;
   padding: 20px;
-  background-color: var(--primary-color);
+  background-color: var(--navy-dark-color);
   color: var(--white-color);
   box-shadow: 0px -10px 10px rgb(0 0 0 / 20%);
 }
@@ -155,13 +156,13 @@
 .footer__top-list--item {
   font-size: var(--font-size-small);
   padding: 5px 0;
-  color: #ffd6d6;
+  color: var(--gray-text-footer-color);
   cursor: pointer;
 }
 
 .footer__top-list--item:hover {
   background-color: var(--white-color);
-  color: var(--primary-color);
+  color: var(--navy-dark-color);
   padding-left: 5px;
   transition: all 0.25s;
 }

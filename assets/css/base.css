@@ -133,8 +133,11 @@ table {
   --blue-color: #005596;
   --blue-light-color: #1473e6;
   --gray-color: #757575;
+  --gray-dark-color: #333;
+  --gray-text-footer-color: #a9b3bb;
   --gray-light-color: #e8ebed;
   --form-primary-color: #ec90a9;
+  --navy-dark-color: #181821;
   --header-height: 64px;
   --font-size-small: 14px;
   --font-size-primary: 16px;
