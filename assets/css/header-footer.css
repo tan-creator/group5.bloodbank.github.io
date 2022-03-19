@@ -102,7 +102,7 @@
   align-items: center;
   font-size: 22px;
   text-decoration: none;
-  color: var(--primary-color);
+  color: var(--gray-color);
 
   /* Chống bôi đen */
   -moz-user-select: none; /* Firefox */
@@ -113,7 +113,7 @@
 }
 
 .header__login:hover {
-  color: var(--primary-color);
+  color: var(--gray-dark-color);
   text-decoration: none;
 }
 
@@ -192,5 +192,5 @@
 
 .footer__bottom-copyright {
   font-size: var(--font-size-small);
-  color: #ffd6d6;
+  color: var(--gray-text-footer-color);
 }

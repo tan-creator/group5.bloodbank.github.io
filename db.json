@@ -1,0 +1,71 @@
+{
+    "donorHomePageContent" : [
+        {
+            "id": 1,
+            "title": "Why Donate?",
+            "image": "../assets/img/Donor-img/why-donate.jpg"
+        },
+        {
+            "id": 2,
+            "title": "Blood Donation FAQs",
+            "image": "../assets/img/Donor-img/donation-faqs.jpg"
+        },
+        {
+            "id": 3,
+            "title": "Blood Donation Process",
+            "image": "../assets/img/Donor-img/agenda.jpg"
+        },
+        {
+            "id": 4,
+            "title": "Donations types and procedures",
+            "image": "../assets/img/Donor-img/donation-types.jpg"
+        },
+        {
+            "id": 5,
+            "title": "Find a Blood Center",
+            "image": "../assets/img/Donor-img/blood-center.jpg"
+        }
+    ],
+    "bloodTypesReserve": [
+        {
+            "id": 1,
+            "type": "O+",
+            "amount": 420
+        },
+        {
+            "id": 2,
+            "type": "O-",
+            "amount": 150
+        },
+        {
+            "id": 3,
+            "type": "A+",
+            "amount": 100
+        },
+        {
+            "id": 4,
+            "type": "A-",
+            "amount": 200
+        },
+        {
+            "id": 5,
+            "type": "B+",
+            "amount": 200
+        },
+        {
+            "id": 6,
+            "type": "B-",
+            "amount": 320
+        },
+        {
+            "id": 7,
+            "type": "AB+",
+            "amount": 80
+        },
+        {
+            "id": 8,
+            "type": "AB-",
+            "amount": 220
+        }
+    ]
+}

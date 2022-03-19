@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "json-server": "^0.17.0"
+  },
+  "name": "blood-bank",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "json-server --watch db.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tan-creator/group5.bloodbank.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tan-creator/group5.bloodbank.github.io/issues"
+  },
+  "homepage": "https://github.com/tan-creator/group5.bloodbank.github.io#readme"
+}
