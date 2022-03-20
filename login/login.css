@@ -24,3 +24,11 @@
 .login__about-link:hover {
   opacity: 0.9;
 }
+
+.form__wrong {
+  color: var(--primary-color);
+  text-align: left;
+  padding-left: 5px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}

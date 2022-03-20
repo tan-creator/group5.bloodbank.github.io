@@ -1,71 +1,145 @@
 {
-    "donorHomePageContent" : [
-        {
-            "id": 1,
-            "title": "Why Donate?",
-            "image": "../assets/img/Donor-img/why-donate.jpg"
-        },
-        {
-            "id": 2,
-            "title": "Blood Donation FAQs",
-            "image": "../assets/img/Donor-img/donation-faqs.jpg"
-        },
-        {
-            "id": 3,
-            "title": "Blood Donation Process",
-            "image": "../assets/img/Donor-img/agenda.jpg"
-        },
-        {
-            "id": 4,
-            "title": "Donations types and procedures",
-            "image": "../assets/img/Donor-img/donation-types.jpg"
-        },
-        {
-            "id": 5,
-            "title": "Find a Blood Center",
-            "image": "../assets/img/Donor-img/blood-center.jpg"
-        }
-    ],
-    "bloodTypesReserve": [
-        {
-            "id": 1,
-            "type": "O+",
-            "amount": 420
-        },
-        {
-            "id": 2,
-            "type": "O-",
-            "amount": 150
-        },
-        {
-            "id": 3,
-            "type": "A+",
-            "amount": 100
-        },
-        {
-            "id": 4,
-            "type": "A-",
-            "amount": 200
-        },
-        {
-            "id": 5,
-            "type": "B+",
-            "amount": 200
-        },
-        {
-            "id": 6,
-            "type": "B-",
-            "amount": 320
-        },
-        {
-            "id": 7,
-            "type": "AB+",
-            "amount": 80
-        },
-        {
-            "id": 8,
-            "type": "AB-",
-            "amount": 220
-        }
-    ]
+  "donorHomePageContent": [
+    {
+      "id": 1,
+      "title": "Why Donate?",
+      "image": "../assets/img/Donor-img/why-donate.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Blood Donation FAQs",
+      "image": "../assets/img/Donor-img/donation-faqs.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Blood Donation Process",
+      "image": "../assets/img/Donor-img/agenda.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Donations types and procedures",
+      "image": "../assets/img/Donor-img/donation-types.jpg"
+    },
+    {
+      "id": 5,
+      "title": "Find a Blood Center",
+      "image": "../assets/img/Donor-img/blood-center.jpg"
+    }
+  ],
+  "bloodTypesReserve": [
+    {
+      "id": 1,
+      "type": "O+",
+      "amount": 420
+    },
+    {
+      "id": 2,
+      "type": "O-",
+      "amount": 150
+    },
+    {
+      "id": 3,
+      "type": "A+",
+      "amount": 100
+    },
+    {
+      "id": 4,
+      "type": "A-",
+      "amount": 200
+    },
+    {
+      "id": 5,
+      "type": "B+",
+      "amount": 200
+    },
+    {
+      "id": 6,
+      "type": "B-",
+      "amount": 320
+    },
+    {
+      "id": 7,
+      "type": "AB+",
+      "amount": 80
+    },
+    {
+      "id": 8,
+      "type": "AB-",
+      "amount": 220
+    }
+  ],
+  "userAccounts": [
+    {
+      "id": 1,
+      "fullname": "Nuoc My",
+      "email": "iamheohihi1102@gmail.com",
+      "password": "123123",
+      "password_confirmation": "123123"
+    },
+    {
+      "fullname": "Pham Anh Tuan",
+      "email": "phamanhtuan200420@gmail.com",
+      "password": "123456",
+      "password_confirmation": "123456",
+      "id": 2
+    },
+    {
+      "fullname": "tuanda",
+      "email": "tuan@gmail.com",
+      "password": "123123",
+      "password_confirmation": "123123",
+      "id": 3
+    },
+    {
+      "fullname": "pham thanh luan",
+      "email": "phamthanhluan721@gmail.com",
+      "password": "123123",
+      "password_confirmation": "123123",
+      "id": 4
+    },
+    {
+      "fullname": "User Test 1",
+      "email": "uoqurpoi@gmail.com",
+      "password": "123123",
+      "password_confirmation": "123123",
+      "id": 5
+    },
+    {
+      "fullname": "Nuoc My",
+      "email": "phamanhtuan200420@gmail.com",
+      "password": "123123",
+      "password_confirmation": "123123",
+      "id": 6
+    },
+    {
+      "fullname": "iamheohihi1102@gmail.com",
+      "email": "iamheohihi1102@gmail.com",
+      "password": "123123",
+      "password_confirmation": "123123",
+      "id": 7
+    },
+    {
+      "fullname": "Nuoc My",
+      "email": "phamanhtuan200420chuaco@gmail.com",
+      "password": "123123",
+      "password_confirmation": "123123",
+      "id": 8
+    }
+  ],
+  "bloodDonationForm": [
+    {
+      "approve": false,
+      "firstname": "Nuoc",
+      "lastname": "My",
+      "email": "iamheohihi1102@gmail.com",
+      "phonenumber": "+84763030364",
+      "address": "Da Nang",
+      "bloodgroup": "A-",
+      "occupation": "asdasd",
+      "donated": "yes",
+      "disease": "no",
+      "allergies": "no",
+      "id": 1
+    }
+  ]
 }

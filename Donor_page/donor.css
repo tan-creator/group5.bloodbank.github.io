@@ -74,7 +74,12 @@
 }
 
 .options-list--item {
-  padding: 10px 0;
+  margin: 14px 0;
+  cursor: pointer;
+}
+
+.options-list--item:hover {
+  color: var(--gray-text-footer-color);
 }
 
 .options-list--item a {

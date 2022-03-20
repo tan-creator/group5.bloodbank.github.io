@@ -53,6 +53,7 @@
                             </div>
                             <span class="form__group-hint"></span>
                         </div>
+                        <span class="form__wrong"></span>
                         <button class="main__input-btn">REGISTER</button>
                     </div>
                 </div>
@@ -68,6 +69,9 @@
         </div>
     </div>
 
+    <!-- axios -->
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
+    <!-- Validator JS -->
     <script src="../Validator/validator.js"></script>
 
     <script>
@@ -77,6 +81,7 @@
             errorSelector: '.form__group-hint',
             inputItem: '.main__input-item',
             submitBtn: '.main__input-btn',
+            formWrong: '.form__wrong',
             rules: [
                 Validator.isRequired('#fullname', 'Please enter your full name'),
                 Validator.isRequired('#email', 'Please enter your email'),
@@ -87,8 +92,7 @@
                 Validator.isConfirmed('#password_confirmation', () => document.querySelector('#form-register #password').value,
                 'Confirm password is incorrect'),
             ],
-            onSubmit: function(data) {
-                console.log(data);
+            onSubmit: function() {
             }
         })
     </script>

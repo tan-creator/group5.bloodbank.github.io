@@ -2,6 +2,10 @@
 function Validator(options) {
   const formElement = document.querySelector(options.form);
   const selectorRules = {};
+  const userAccountsLink = "http://localhost:3000/userAccounts";
+  const bloodDonationLink = "http://localhost:3000/bloodDonationForm";
+
+  // Hàm gửi value vào cơ sở dữ liệu
 
   // Hàm lấy ra thẻ cha
   function getParent(element, selector) {
@@ -100,7 +104,80 @@ function Validator(options) {
             return values;
           },
           {});
-          options.onSubmit(formValues);
+
+          // Hàm submit Default
+          function submitDefault() {
+            const { email } = formValues;
+            const getAccountDatas = () => {
+              try {
+                return axios.get(userAccountsLink);
+              } catch (error) {
+                console.log(error);
+              }
+            };
+            getAccountDatas()
+              .then((res) => {
+                return res.data.some((account) => {
+                  return account.email === email;
+                });
+              })
+              .then((data) => {
+                if (data === false) {
+                  axios.post(userAccountsLink, {
+                    id: Date.now,
+                    ...formValues,
+                  });
+                  window.location.assign("../Donor_page/donor.html");
+                } else {
+                  const wrongMessage = formElement.querySelector(
+                    options.formWrong
+                  );
+                  wrongMessage.innerText = "Email already exists!";
+                }
+              });
+          }
+
+          // Xử lý khi nhấn nút Submit, tùy trường hợp là Form đăng ký hoặc đăng nhập
+          switch (options.form) {
+            case "#form-login":
+              const { email, password } = formValues;
+              const getAccountDatas = () => {
+                try {
+                  return axios.get(userAccountsLink);
+                } catch (error) {
+                  console.log(error);
+                }
+              };
+              getAccountDatas().then((res) => {
+                res.data.forEach((account) => {
+                  if (
+                    account.email === email &&
+                    account.password === password
+                  ) {
+                    localStorage.setItem("accountId", account.id);
+                    return window.location.assign("../Donor_page/donor.html");
+                  }
+                });
+
+                // Nếu người dùng nhập tài khoản hoặc mật khẩu không đúng, bắn ra thông báo nhập sai
+                const wrongMessage = formElement.querySelector(
+                  options.formWrong
+                );
+                wrongMessage.innerText = "Wrong account or password !";
+              });
+              break;
+
+            case ".donate__form":
+              axios.post(bloodDonationLink, {
+                id: Date.now,
+                approve: false,
+                ...formValues,
+              });
+              break;
+
+            default:
+              options.onSubmit(submitDefault());
+          }
         }
       }
     };

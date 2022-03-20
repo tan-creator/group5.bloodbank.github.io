@@ -4,12 +4,38 @@ const $$ = document.querySelectorAll.bind(document);
 // API
 const donorCenterContentApi = "http://localhost:3000/donorHomePageContent";
 const bloodTypesReserve = "http://localhost:3000/bloodTypesReserve";
+const userAccountsLink = "http://localhost:3000/userAccounts";
 
 // Lấy ra các elements trong DOM
 const avtBtn = $(".header__avt");
 const options = $(".header__avt--options");
 const footerElement = $(".footer");
 const menuListItem = $(".main__menu");
+const accountId = Number(localStorage.getItem("accountId"));
+
+function renderProfileAccount() {
+  // Hàm lấy dữ liệu gán vào Profile Account
+  async function getProfileAccount() {
+    try {
+      const users = await axios.get(userAccountsLink);
+      return users;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  getProfileAccount().then((users) => {
+    users.data.forEach((user) => {
+      if (user.id === accountId) {
+        const userNameElement = $(".options__right-name");
+        const userEmailElement = $(".options__right-email");
+
+        userNameElement.innerText = user.fullname;
+        userEmailElement.innerText = user.email;
+      }
+    });
+  });
+}
 
 // Lấy dữ liệu từ API
 function getData(apiUrl) {
@@ -57,8 +83,6 @@ async function renderBloodTypesReserve() {
   );
 
   storageList.innerHTML = htmls.join("");
-
-  return getData(renderBloodTypes, bloodTypesReserve);
 }
 
 const app = {
@@ -66,10 +90,13 @@ const app = {
   render: function () {
     renderContent();
     renderBloodTypesReserve();
+    renderProfileAccount();
   },
 
   // Hàm xử lý tất các các Events DOM
   handleEvents: function () {
+    const logoutBtn = $(".logout");
+
     // Xử lý khi nhấn vào avt, sẽ hiện options của tài khoản đó
     avtBtn.onclick = function () {
       options.classList.toggle("active");
@@ -83,6 +110,11 @@ const app = {
       footerTop < 390
         ? menuListItem.classList.add("bottom__0")
         : menuListItem.classList.remove("bottom__0");
+    };
+
+    // Xử lý khi click vào nút Logout
+    logoutBtn.onclick = function () {
+      window.location.assign("../index.html");
     };
   },
 

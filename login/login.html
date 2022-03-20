@@ -40,6 +40,7 @@
                             </div>
                             <span class="form__group-hint"></span>
                         </div>
+                        <span class="form__wrong"></span>
                         <button class="main__input-btn">LOGIN</button>
                     </div>
 
@@ -60,6 +61,7 @@
         </div>
     </div>
 
+    <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script src="../Validator/validator.js"></script>
     <script>
         Validator({
@@ -68,13 +70,13 @@
             errorSelector: '.form__group-hint',
             inputItem: '.main__input-item',
             submitBtn: '.main__input-btn',
+            formWrong: '.form__wrong',
             rules: [
                 Validator.isRequired('#email', 'Please enter your email'),
                 Validator.isEmail('#email'),
                 Validator.isRequired('#password', 'Please enter your password'),
             ],
-            onSubmit: function(data) {
-                console.log(data);
+            onSubmit: function() {
             }
         })
     </script>
