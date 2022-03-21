@@ -78,7 +78,7 @@
     },
     {
       "fullname": "Pham Anh Tuan",
-      "email": "phamanhtuan200420@gmail.com",
+      "email": "phamanhtuan200420update@gmail.com",
       "password": "123456",
       "password_confirmation": "123456",
       "id": 2,
@@ -94,11 +94,22 @@
       "allergies": "yes"
     },
     {
-      "fullname": "tuanda",
+      "fullname": "Tuan Da",
       "email": "tuan@gmail.com",
       "password": "123123",
       "password_confirmation": "123123",
-      "id": 3
+      "id": 3,
+      "citizenId": "184407465",
+      "gender": "male",
+      "dateOfBirth": "2000-04-20",
+      "phonenumber": "999999999",
+      "address": "Da Nang",
+      "bloodgroup": "O+",
+      "occupation": "Hoc Sinh",
+      "donated": "no",
+      "disease": "yes",
+      "allergies": "no",
+      "key": "184407465"
     },
     {
       "fullname": "pham thanh luan",
@@ -192,72 +203,6 @@
       "disease": "no",
       "allergies": "no",
       "id": 1
-    },
-    {
-      "userId": 3,
-      "approve": false,
-      "firstname": "Tuan",
-      "lastname": "Da",
-      "email": "tuan@gmail.com",
-      "phonenumber": "+848583978559",
-      "address": "1513 N Parsons PL",
-      "bloodgroup": "O+",
-      "occupation": "hoc sinh",
-      "donated": "yes",
-      "disease": "yes",
-      "allergies": "no",
-      "id": 2
-    },
-    {
-      "userId": 2,
-      "approve": false,
-      "fullname": "Pham Anh Tuan",
-      "citizenId": "ewqeqw",
-      "gender": "female",
-      "dateOfBirth": "2000-04-20",
-      "email": "phamanhtuan200420@gmail.com",
-      "phonenumber": "123123",
-      "address": "21321",
-      "bloodgroup": "A+",
-      "occupation": "dsafdsf",
-      "donated": "no",
-      "disease": "yes",
-      "allergies": "no",
-      "id": 3
-    },
-    {
-      "userId": 2,
-      "approve": false,
-      "fullname": "Pham Anh Tuan",
-      "citizenId": "12312233",
-      "gender": "male",
-      "dateOfBirth": "2000-04-20",
-      "email": "phamanhtuan200420@gmail.com",
-      "phonenumber": "12312412421",
-      "address": "asdafsd",
-      "bloodgroup": "A+",
-      "occupation": "2314231432",
-      "donated": "no",
-      "disease": "no",
-      "allergies": "no",
-      "id": 4
-    },
-    {
-      "userId": 2,
-      "approve": false,
-      "fullname": "Pham Anh Tuan",
-      "citizenId": "12312321",
-      "gender": "male",
-      "dateOfBirth": "1111-11-11",
-      "email": "phamanhtuan200420@gmail.com",
-      "phonenumber": "213123123",
-      "address": "weqwe123123",
-      "bloodgroup": "A+",
-      "occupation": "321321321",
-      "donated": "no",
-      "disease": "no",
-      "allergies": "yes",
-      "id": 5
     }
   ]
 }

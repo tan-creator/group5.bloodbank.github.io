@@ -5,25 +5,40 @@ const $$ = document.querySelectorAll.bind(document);
 const donorCenterContentApi = "http://localhost:3000/donorHomePageContent";
 const bloodTypesReserve = "http://localhost:3000/bloodTypesReserve";
 const userAccountsLink = "http://localhost:3000/userAccounts";
+const inputElements = Array.from(document.querySelectorAll(".inputElement"));
+const inputsNotEmail = [];
+const backSettingBtn = $(".setting__back-btn");
+
+// Lấy ra các thẻ Input, trừ field Email
+inputElements.forEach((inputElement) => {
+  if (inputElement.name !== "email") {
+    inputsNotEmail.push(inputElement);
+  }
+});
 
 // Lấy ra các elements trong DOM
 const avtBtn = $(".header__avt");
 const options = $(".header__avt--options");
 const footerElement = $(".footer");
-const menuListItem = $(".main__menu");
+const settingBtn = $(".setting");
+const editBtns = $$(".btn-edit");
+const saveBtns = $$(".btn-save");
+const cancelBtns = $$(".btn-cancel");
+const editMode = $$(".setting__form-right--editmode");
 const accountId = Number(localStorage.getItem("accountId"));
 
-function renderProfileAccount() {
-  // Hàm lấy dữ liệu gán vào Profile Account
-  async function getProfileAccount() {
-    try {
-      const users = await axios.get(userAccountsLink);
-      return users;
-    } catch (err) {
-      console.log(err);
-    }
+// Hàm lấy ra giữ liệu tài khoản ở JSON Server
+async function getProfileAccount() {
+  try {
+    const users = await axios.get(userAccountsLink);
+    return users;
+  } catch (err) {
+    console.log(err);
   }
+}
 
+// Hàm lấy dữ liệu gán vào Profile Account
+function renderProfileAccount() {
   getProfileAccount().then((users) => {
     users.data.forEach((user) => {
       if (user.id === accountId) {
@@ -35,6 +50,30 @@ function renderProfileAccount() {
       }
     });
   });
+}
+
+// Render setting account
+function renderSettingProfile() {
+  // Lấy ra tất cả các thẻ input
+  const inputElements = Array.from(document.querySelectorAll(".inputElement"));
+
+  getProfileAccount()
+    .then((users) => {
+      return users.data.find((user) => {
+        if (user.id === accountId) {
+          return user;
+        }
+      });
+    })
+    .then((user) => {
+      inputElements.forEach((inputElement) => {
+        Object.keys(user).forEach((key) => {
+          if (inputElement.name === key) {
+            inputElement.value = user[key] === "undefined" ? "" : user[key];
+          }
+        });
+      });
+    });
 }
 
 // Lấy dữ liệu từ API
@@ -59,7 +98,7 @@ async function renderContent() {
   `
   );
 
-  centerContent.innerHTML = htmls.join("");
+  if (centerContent) return (centerContent.innerHTML = htmls.join(""));
 }
 
 // Hàm render Kho dự trữ máu (Blood storage)
@@ -82,7 +121,9 @@ async function renderBloodTypesReserve() {
   `
   );
 
-  storageList.innerHTML = htmls.join("");
+  if (storageList) {
+    storageList.innerHTML = htmls.join("");
+  }
 }
 
 const app = {
@@ -91,6 +132,7 @@ const app = {
     renderContent();
     renderBloodTypesReserve();
     renderProfileAccount();
+    renderSettingProfile();
   },
 
   // Hàm xử lý tất các các Events DOM
@@ -104,18 +146,72 @@ const app = {
 
     // Xử lý khi cuộn xuống dưới cùng, thanh Footer sẽ đẩy Menulist đi lên chứ không che đi
     document.onscroll = function () {
+      const menuListItem = $(".main__menu");
+      const mainSettings = $(".main__setting");
+
       // Lấy ra tọa độ chiều cao của Footer
       const footerTop = footerElement.getBoundingClientRect().top;
 
-      footerTop < 390
-        ? menuListItem.classList.add("bottom__0")
-        : menuListItem.classList.remove("bottom__0");
+      if (!mainSettings) {
+        footerTop < 390
+          ? menuListItem.classList.add("bottom__0")
+          : menuListItem.classList.remove("bottom__0");
+      }
     };
 
     // Xử lý khi click vào nút Logout
     logoutBtn.onclick = function () {
       window.location.assign("../index.html");
     };
+
+    // Khi click vào setting tài khoản
+    settingBtn.onclick = function () {
+      window.location.assign("./setting.html");
+    };
+
+    // Khi click vào nút Edit
+    editBtns.forEach((editBtn, index) => {
+      const inputElement = inputsNotEmail[index];
+
+      editBtn.onclick = function () {
+        editBtn.style.display = "none";
+        editMode[index].style.display = "block";
+        inputElement.disabled = false;
+        inputElement.focus();
+      };
+
+      cancelBtns.forEach((cancelBtn, index) => {
+        const inputElement = inputsNotEmail[index];
+        cancelBtn.onclick = function () {
+          editMode[index].style.display = "none";
+          editBtns[index].style.display = "block";
+          inputElement.disabled = true;
+          renderSettingProfile();
+        };
+      });
+
+      saveBtns.forEach((saveBtn, index) => {
+        const inputElement = inputsNotEmail[index];
+        const key = inputElement.name;
+        saveBtn.onclick = function () {
+          getProfileAccount()
+            .then((users) => {
+              return users.data.find((user) => user.id === accountId);
+            })
+            .then((user) => {
+              axios.patch(userAccountsLink + "/" + user.id, {
+                [key]: inputElement.value,
+              });
+            });
+        };
+      });
+    });
+
+    // Click vào nút back ở page setting
+    if (backSettingBtn)
+      return (backSettingBtn.onclick = function () {
+        window.location.assign("./donor.html");
+      });
   },
 
   start: function () {

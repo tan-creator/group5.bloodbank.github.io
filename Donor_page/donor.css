@@ -427,3 +427,97 @@
   display: flex;
   align-items: center;
 }
+
+/* Setting */
+.main__setting {
+  position: relative;
+  color: var(--black-color);
+  width: 100%;
+  margin: 20px 0 50px;
+}
+
+.setting__back-btn {
+  position: absolute;
+  font-size: 30px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.setting__back-btn:hover {
+  transition: 0.3s ease;
+  left: -5px;
+  color: var(--gray-color);
+}
+
+.setting__hero {
+  margin: 50px 0 20px;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.main__setting h4 {
+  font-size: 20px;
+  border-bottom: 1px solid var(--gray-light-color);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.setting__form {
+  display: flex;
+  align-items: center;
+  margin: 0 120px 20px;
+  justify-content: space-between;
+}
+
+.setting__form-left {
+  display: flex;
+  flex-direction: column;
+  width: 440px;
+}
+
+.setting__form-name {
+  font-weight: 600;
+  font-size: 16px;
+  padding-bottom: 6px;
+}
+
+.setting__form-left input,
+.bloodgroup {
+  height: 38px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--gray-light-color);
+  color: var(--gray-color);
+}
+
+.setting__form-right {
+  display: flex;
+}
+
+.setting__form-btn {
+  margin: 0 5px;
+  height: 38px;
+  min-width: 80px;
+  border-radius: 20px;
+  color: var(--gray-color);
+  border: 1px solid #ccc;
+  background-color: var(--white-color);
+}
+
+.setting__form-btn:hover {
+  border: 1px solid var(--black-color);
+  transition: all 0.3s;
+}
+
+.btn-save {
+  border: 1px solid var(--blue-light-color);
+}
+
+.btn-save:hover {
+  border: 1px solid var(--blue-light-color);
+}
+
+.setting__form-right--editmode {
+  display: none;
+}

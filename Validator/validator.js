@@ -81,7 +81,10 @@ function Validator(options) {
             options.rules.forEach((rule) => {
               const inputElement = formElement.querySelector(rule.selector);
               Object.keys(account).forEach((key) => {
-                if (key === inputElement.name) {
+                if (
+                  key === inputElement.name &&
+                  inputElement.type !== "radio"
+                ) {
                   inputElement.value =
                     account[key] === "undefine" ? "" : account[key];
                 }
@@ -179,9 +182,10 @@ function Validator(options) {
 
             getAccountDatas().then((accounts) => {
               accounts.data.forEach((account) => {
+                const { email, ...rest } = formValues;
                 if (account.id === accountId) {
                   axios.patch(userAccountsLink + "/" + account.id, {
-                    ...formValues,
+                    ...rest,
                   });
                 }
               });
