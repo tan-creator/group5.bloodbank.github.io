@@ -67,6 +67,31 @@ function Validator(options) {
   };
 
   if (formElement) {
+    // Truyền các dữ liệu sẵn có của User đang đăng nhập và form Donations
+    if (options.form === ".donate__form") {
+      const accountId = Number(localStorage.getItem("accountId"));
+
+      async function getAccountDatas() {
+        return await axios.get(userAccountsLink);
+      }
+
+      getAccountDatas().then((res) => {
+        res.data.forEach((account) => {
+          if (account.id === accountId) {
+            options.rules.forEach((rule) => {
+              const inputElement = formElement.querySelector(rule.selector);
+              Object.keys(account).forEach((key) => {
+                if (key === inputElement.name) {
+                  inputElement.value =
+                    account[key] === "undefine" ? "" : account[key];
+                }
+              });
+            });
+          }
+        });
+      });
+    }
+
     // Lắng nghe sự kiện khi nhấn vào nút Submit form
     formElement.querySelector(options.submitBtn).onclick = function () {
       var isFormValid = true;
@@ -123,11 +148,13 @@ function Validator(options) {
               })
               .then((data) => {
                 if (data === false) {
+                  id = Date.now();
                   axios.post(userAccountsLink, {
-                    id: Date.now,
+                    id: id,
                     ...formValues,
                   });
-                  window.location.assign("../Donor_page/donor.html");
+                  localStorage.setItem("accountId", id);
+                  return window.location.assign("../Donor_page/donor.html");
                 } else {
                   const wrongMessage = formElement.querySelector(
                     options.formWrong
@@ -137,42 +164,69 @@ function Validator(options) {
               });
           }
 
+          // Hàm Submit Form Donations Blood
+          function submitDonationsForm() {
+            const accountId = Number(localStorage.getItem("accountId"));
+
+            async function getAccountDatas() {
+              try {
+                const accounts = await axios.get(userAccountsLink);
+                return accounts;
+              } catch (err) {
+                console.log(err);
+              }
+            }
+
+            getAccountDatas().then((accounts) => {
+              accounts.data.forEach((account) => {
+                if (account.id === accountId) {
+                  axios.patch(userAccountsLink + "/" + account.id, {
+                    ...formValues,
+                  });
+                }
+              });
+            });
+
+            axios.post(bloodDonationLink, {
+              id: Date.now,
+              userId: accountId,
+              approve: false,
+              ...formValues,
+            });
+          }
+
+          // Hàm Submit Login
+          function submitLogin() {
+            const { email, password } = formValues;
+            const getAccountDatas = () => {
+              try {
+                return axios.get(userAccountsLink);
+              } catch (error) {
+                console.log(error);
+              }
+            };
+            getAccountDatas().then((res) => {
+              res.data.forEach((account) => {
+                if (account.email === email && account.password === password) {
+                  localStorage.setItem("accountId", account.id);
+                  return window.location.assign("../Donor_page/donor.html");
+                }
+              });
+
+              // Nếu người dùng nhập tài khoản hoặc mật khẩu không đúng, bắn ra thông báo nhập sai
+              const wrongMessage = formElement.querySelector(options.formWrong);
+              wrongMessage.innerText = "Wrong account or password !";
+            });
+          }
+
           // Xử lý khi nhấn nút Submit, tùy trường hợp là Form đăng ký hoặc đăng nhập
           switch (options.form) {
             case "#form-login":
-              const { email, password } = formValues;
-              const getAccountDatas = () => {
-                try {
-                  return axios.get(userAccountsLink);
-                } catch (error) {
-                  console.log(error);
-                }
-              };
-              getAccountDatas().then((res) => {
-                res.data.forEach((account) => {
-                  if (
-                    account.email === email &&
-                    account.password === password
-                  ) {
-                    localStorage.setItem("accountId", account.id);
-                    return window.location.assign("../Donor_page/donor.html");
-                  }
-                });
-
-                // Nếu người dùng nhập tài khoản hoặc mật khẩu không đúng, bắn ra thông báo nhập sai
-                const wrongMessage = formElement.querySelector(
-                  options.formWrong
-                );
-                wrongMessage.innerText = "Wrong account or password !";
-              });
+              submitLogin();
               break;
 
             case ".donate__form":
-              axios.post(bloodDonationLink, {
-                id: Date.now,
-                approve: false,
-                ...formValues,
-              });
+              submitDonationsForm();
               break;
 
             default:
