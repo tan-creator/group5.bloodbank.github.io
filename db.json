@@ -198,32 +198,25 @@
       "password": "123123",
       "password_confirmation": "123123"
     },
-    { 
+    {
       "id": 1647958321970,
       "fullname": "Nguyen Van Tan",
       "email": "nguyenvantan@gmail.com",
       "password": "123123",
-      "password_confirmation": "123123"
+      "password_confirmation": "123123",
+      "citizenId": "12345678",
+      "gender": "male",
+      "dateOfBirth": "2000-02-21",
+      "phonenumber": "21321321",
+      "address": "Quang Tri",
+      "bloodgroup": "A-",
+      "occupation": "DTU",
+      "donated": "yes",
+      "disease": "yes",
+      "allergies": "no"
     }
   ],
   "bloodDonationForm": [
-    {
-      "userId": 3,
-      "approve": false,
-      "fullname": "Tuan Da",
-      "citizenId": "184407465",
-      "gender": "male",
-      "dateOfBirth": "2000-04-20",
-      "email": "tuan@gmail.com",
-      "phonenumber": "0763030364",
-      "address": "Da Nang",
-      "bloodgroup": "O+",
-      "occupation": "Student",
-      "donated": "yes",
-      "disease": "no",
-      "allergies": "no",
-      "id": 2
-    },
     {
       "userId": 7,
       "approve": false,
@@ -240,10 +233,29 @@
       "disease": "no",
       "allergies": "yes",
       "id": 3
+    }
+  ],
+  "hospitalCalendar": [
+    {
+      "userId": 3,
+      "approve": true,
+      "fullname": "Tuan Da",
+      "citizenId": "184407465",
+      "gender": "male",
+      "dateOfBirth": "2000-04-20",
+      "email": "tuan@gmail.com",
+      "phonenumber": "0763030364",
+      "address": "Da Nang",
+      "bloodgroup": "O+",
+      "occupation": "Student",
+      "donated": "yes",
+      "disease": "no",
+      "allergies": "no",
+      "id": 2
     },
     {
       "userId": 7,
-      "approve": false,
+      "approve": true,
       "fullname": "iamheohihi1102@gmail.com",
       "citizenId": "12321321873",
       "gender": "female",

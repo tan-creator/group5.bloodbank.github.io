@@ -3,7 +3,10 @@ const $$ = document.querySelectorAll.bind(document);
 
 // API
 const bloodDonationFormApi = "http://localhost:3000/bloodDonationForm";
+const userAccountsApi = "http://localhost:3000/userAccounts";
+const hospitalCalendarApi = "http://localhost:3000/hospitalCalendar";
 
+// Get DOM element
 const waitConfirmBlock = $(".hospital__waitConfirm");
 
 // Lấy ra dữ liệu form đăng ký từ API Json Server
@@ -16,13 +19,22 @@ async function getDonationForms() {
   }
 }
 
+async function getAccountDatas() {
+  try {
+    const userDatas = await axios.get(userAccountsApi);
+    return userDatas;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 // Render dữ liệu ra Page Hospital Oder
 function renderOrderPage() {
   getDonationForms()
     .then((donationFormDatas) => {
-      return donationFormDatas.data.map((donationFormDatas, index) => {
+      return donationFormDatas.data.map((donationFormDatas) => {
         return `
-      <li class="hospital__waitConfirm-item row">
+      <li class="hospital__waitConfirm-item row" data-set="${donationFormDatas.id}">
         <div class="info waitConfirm__info row col-12">
             <div class="waitConfirm__info-item col-4">
                 <label class="info__item-title">Fullname</label>
@@ -101,10 +113,27 @@ const app = {
 
   // Hàm xử lý tất cả các thao tác ở DOM
   handleEvents: function () {
-    const infoWaits = Array.from($$(".hospital__waitConfirm-item"));
+    const infoWaitsArray = Array.from($$(".hospital__waitConfirm-item"));
+    const approveBtns = $$(".btn-approve");
+    const refuseBtns = $$(".btn-refuse");
+
+    // Xử lý onscroll sẽ đẩy thanh Menu lên
+    document.onscroll = function () {
+      const footerElement = $(".footer");
+      const menuListItem = $(".main__menu");
+      const mainSettings = $(".main__setting");
+
+      // Lấy ra tọa độ chiều cao của Footer
+      const footerTop = footerElement.getBoundingClientRect().top;
+      if (!mainSettings) {
+        footerTop < 460
+          ? menuListItem.classList.add("bottom__0")
+          : menuListItem.classList.remove("bottom__0");
+      }
+    };
 
     // Xử lý khi click vào từng info đang chờ phê duyệt
-    infoWaits.forEach((infoWait, index) => {
+    infoWaitsArray.forEach((infoWait) => {
       infoWait.onclick = function () {
         if ($(".hospital__waitConfirm-item.active")) {
           $(".hospital__waitConfirm-item.active").classList.remove("active");
@@ -112,11 +141,57 @@ const app = {
         infoWait.classList.add("active");
       };
     });
+
+    // Khi click vào nút Approve
+    approveBtns.forEach((approveBtn, index) => {
+      approveBtn.onclick = function () {
+        async function approveForm() {
+          // Lấy ra ID của form được click
+          const idForm = infoWaitsArray[index].dataset.set;
+          try {
+            // Lấy ra dữ liệu của form được click
+            const donationForm = await getDonationForms().then(
+              (donationFormDatas) => {
+                return donationFormDatas.data.find(
+                  (donationForm) => donationForm.id === Number(idForm)
+                );
+              }
+            );
+            // Đưa dữ liệu của form được click vào JSON Server hospitalCalendarApi
+            await axios.post(hospitalCalendarApi, {
+              ...donationForm,
+              approve: true,
+            });
+            // Sau khi đưa dữ liệu vào hospitalCalendarApi, xóa Form Donation ở file cũ
+            await axios.delete(bloodDonationFormApi + "/" + idForm);
+          } catch (err) {
+            console.log(err);
+          }
+        }
+        approveForm();
+      };
+    });
+
+    // Khi click vào nút Refuse
+    refuseBtns.forEach((refuseBtn, index) => {
+      refuseBtn.onclick = () => {
+        async function refuseForm() {
+          // Lấy ra ID của form được click
+          const idForm = infoWaitsArray[index].dataset.set;
+          try {
+            await axios.delete(bloodDonationFormApi + "/" + idForm);
+          } catch (err) {
+            console.log(err);
+          }
+        }
+        refuseForm();
+      };
+    });
   },
 
   start: function () {
     this.render();
-    this.handleEvents();
+    // this.handleEvents();
   },
 };
 
