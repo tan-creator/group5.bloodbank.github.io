@@ -127,6 +127,7 @@ table {
 
 /* ROOT */
 :root {
+  --font-family: "Montserrat", Arial, Helvetica, sans-serif;
   --primary-color: #d61e05;
   --white-color: #fff;
   --black-color: #353940;
@@ -144,7 +145,8 @@ table {
 }
 
 html {
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: var(--font-family);
 }
 
 ::selection {
@@ -331,4 +333,77 @@ html {
   display: block;
   padding-left: 10px;
   margin-bottom: 10px;
+}
+
+/* Menu Options List left */
+
+.main__menu {
+  width: 96px;
+  padding-right: 20px;
+  position: fixed;
+  margin-bottom: 20px;
+}
+
+.main__menu.bottom__0 {
+  position: absolute;
+  bottom: 0;
+}
+
+.menu__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu__add {
+  max-width: 45px;
+  max-height: 45px;
+  padding: 20px;
+  background-color: var(--blue-light-color);
+  border-radius: 50%;
+  color: var(--white-color);
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+.menu__add:hover i {
+  font-size: 19px;
+}
+
+.menu__item {
+  width: 70px;
+  height: 70px;
+  display: grid;
+  place-content: center;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.menu__item.active,
+.menu__item:hover {
+  background-color: #e8ebed;
+}
+
+.menu__list a {
+  align-items: center;
+  border-radius: 16px;
+  color: #404040;
+  display: flex;
+  flex-direction: column;
+  height: 72px;
+  justify-content: center;
+  margin-top: 4px;
+  width: 72px;
+  text-decoration: none;
+}
+
+.menu__list a i {
+  font-size: 18px;
+}
+
+.menu__list span {
+  font-size: 14px;
+  padding-top: 4px;
 }

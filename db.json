@@ -102,7 +102,7 @@
       "citizenId": "184407465",
       "gender": "male",
       "dateOfBirth": "2000-04-20",
-      "phonenumber": "999999999",
+      "phonenumber": "0763030364",
       "address": "Da Nang",
       "bloodgroup": "O+",
       "occupation": "Hoc Sinh",
@@ -133,11 +133,21 @@
       "id": 6
     },
     {
-      "fullname": "iamheohihi1102@gmail.com",
+      "fullname": "Nguyen Van Tan",
       "email": "iamheohihi1102@gmail.com",
       "password": "123123",
       "password_confirmation": "123123",
-      "id": 7
+      "id": 7,
+      "citizenId": "12321321873",
+      "gender": "female",
+      "dateOfBirth": "2004-03-12",
+      "phonenumber": "32187398173",
+      "address": "Da Nang",
+      "bloodgroup": "AB+",
+      "occupation": "Thất nghiệp",
+      "donated": "yes",
+      "disease": "yes",
+      "allergies": "yes"
     },
     {
       "fullname": "Nuoc My",
@@ -187,22 +197,66 @@
       "email": "phamanhtuan200420chuasdasdaco@gmail.com",
       "password": "123123",
       "password_confirmation": "123123"
+    },
+    { 
+      "id": 1647958321970,
+      "fullname": "Nguyen Van Tan",
+      "email": "nguyenvantan@gmail.com",
+      "password": "123123",
+      "password_confirmation": "123123"
     }
   ],
   "bloodDonationForm": [
     {
+      "userId": 3,
       "approve": false,
-      "firstname": "Nuoc",
-      "lastname": "My",
-      "email": "iamheohihi1102@gmail.com",
-      "phonenumber": "+84763030364",
+      "fullname": "Tuan Da",
+      "citizenId": "184407465",
+      "gender": "male",
+      "dateOfBirth": "2000-04-20",
+      "email": "tuan@gmail.com",
+      "phonenumber": "0763030364",
       "address": "Da Nang",
-      "bloodgroup": "A-",
-      "occupation": "asdasd",
+      "bloodgroup": "O+",
+      "occupation": "Student",
       "donated": "yes",
       "disease": "no",
       "allergies": "no",
-      "id": 1
+      "id": 2
+    },
+    {
+      "userId": 7,
+      "approve": false,
+      "fullname": "iamheohihi1102@gmail.com",
+      "citizenId": "12321321873",
+      "gender": "female",
+      "dateOfBirth": "2004-03-12",
+      "email": "iamheohihi1102@gmail.com",
+      "phonenumber": "32187398173",
+      "address": "Quang Nam",
+      "bloodgroup": "AB+",
+      "occupation": "Thất nghiệp",
+      "donated": "no",
+      "disease": "no",
+      "allergies": "yes",
+      "id": 3
+    },
+    {
+      "userId": 7,
+      "approve": false,
+      "fullname": "iamheohihi1102@gmail.com",
+      "citizenId": "12321321873",
+      "gender": "female",
+      "dateOfBirth": "2004-03-12",
+      "email": "iamheohihi1102@gmail.com",
+      "phonenumber": "32187398173",
+      "address": "Da Nang",
+      "bloodgroup": "AB+",
+      "occupation": "Thất nghiệp",
+      "donated": "yes",
+      "disease": "yes",
+      "allergies": "yes",
+      "id": 4
     }
   ]
 }
