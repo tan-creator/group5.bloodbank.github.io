@@ -15,7 +15,7 @@
   margin-left: 96px;
 }
 
-.hospital__header h2 {
+.main__header h2 {
   font-size: 40px;
   font-weight: 600;
   margin-bottom: 20px;
@@ -120,4 +120,40 @@
 
 .btn-refuse {
   border: 1px solid var(--primary-color);
+}
+
+/* STORAGE */
+.storage {
+  width: 100%;
+  margin: 0;
+}
+
+.storage__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.storage__item-block {
+  border: 1px solid var(--gray-light-color);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  width: 240px;
+  height: 240px;
+  display: grid;
+  place-content: center;
+  background-color: var(--white-color);
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.storage__bloodtype-name {
+  font-size: 90px;
+  font-weight: 700;
+}
+
+.storage__item-block p {
+  font-size: 28px;
 }

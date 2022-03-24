@@ -5,9 +5,11 @@ const $$ = document.querySelectorAll.bind(document);
 const bloodDonationFormApi = "http://localhost:3000/bloodDonationForm";
 const userAccountsApi = "http://localhost:3000/userAccounts";
 const hospitalCalendarApi = "http://localhost:3000/hospitalCalendar";
+const storageApi = "http://localhost:3000/bloodTypesReserve";
 
 // Get DOM element
 const waitConfirmBlock = $(".hospital__waitConfirm");
+const storageBlock = $(".storage");
 
 // Lấy ra dữ liệu form đăng ký từ API Json Server
 async function getDonationForms() {
@@ -28,11 +30,21 @@ async function getAccountDatas() {
   }
 }
 
+async function getStorageDatas() {
+  try {
+    const storageDatas = await axios.get(storageApi);
+    return storageDatas;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 // Render dữ liệu ra Page Hospital Oder
 function renderOrderPage() {
   getDonationForms()
     .then((donationFormDatas) => {
       return donationFormDatas.data.map((donationFormDatas) => {
+        // Return htmls
         return `
       <li class="hospital__waitConfirm-item row" data-set="${donationFormDatas.id}">
         <div class="info waitConfirm__info row col-12">
@@ -100,15 +112,44 @@ function renderOrderPage() {
       });
     })
     .then((htmls) => {
-      waitConfirmBlock.innerHTML = htmls.join("");
+      if (waitConfirmBlock) {
+        waitConfirmBlock.innerHTML = htmls.join("");
+      }
       app.handleEvents();
     });
 }
+
+// Render Storage
+function renderStorages() {
+  getStorageDatas()
+    .then((storageDatas) => {
+      return storageDatas.data.map((storage) => {
+        return `
+        <div class="storage__item col-3">
+          <div class="storage__item-block">
+              <div class="storage__bloodtype-name">${storage.type}</div>
+              <p>${storage.amount}ml</p>
+          </div>
+        </div>
+        `;
+      });
+    })
+    .then((htmls) => {
+      storageBlock.innerHTML = htmls.join("");
+      app.handleEvents();
+    });
+}
+
+// Hàm render Calendar
+function renderCalendar() {}
 
 const app = {
   // Render tất cả các dữ liệu ra màn hình
   render: function () {
     renderOrderPage();
+    if (storageBlock) {
+      renderStorages();
+    }
   },
 
   // Hàm xử lý tất cả các thao tác ở DOM
@@ -116,6 +157,13 @@ const app = {
     const infoWaitsArray = Array.from($$(".hospital__waitConfirm-item"));
     const approveBtns = $$(".btn-approve");
     const refuseBtns = $$(".btn-refuse");
+    const avtBtn = $(".header__avt");
+
+    // Xử lý khi click vào avt, hiện ra options
+    avtBtn.onclick = function () {
+      const options = $(".header__avt--options");
+      options.classList.toggle("active");
+    };
 
     // Xử lý onscroll sẽ đẩy thanh Menu lên
     document.onscroll = function () {
@@ -126,7 +174,7 @@ const app = {
       // Lấy ra tọa độ chiều cao của Footer
       const footerTop = footerElement.getBoundingClientRect().top;
       if (!mainSettings) {
-        footerTop < 460
+        footerTop < 412
           ? menuListItem.classList.add("bottom__0")
           : menuListItem.classList.remove("bottom__0");
       }
@@ -148,6 +196,7 @@ const app = {
         async function approveForm() {
           // Lấy ra ID của form được click
           const idForm = infoWaitsArray[index].dataset.set;
+          const idApproveForm = Date.now();
           try {
             // Lấy ra dữ liệu của form được click
             const donationForm = await getDonationForms().then(
@@ -157,10 +206,12 @@ const app = {
                 );
               }
             );
+            console.log(donationForm);
             // Đưa dữ liệu của form được click vào JSON Server hospitalCalendarApi
             await axios.post(hospitalCalendarApi, {
               ...donationForm,
               approve: true,
+              id: idApproveForm,
             });
             // Sau khi đưa dữ liệu vào hospitalCalendarApi, xóa Form Donation ở file cũ
             await axios.delete(bloodDonationFormApi + "/" + idForm);
