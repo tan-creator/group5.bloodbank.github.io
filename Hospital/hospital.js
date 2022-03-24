@@ -6,10 +6,12 @@ const bloodDonationFormApi = "http://localhost:3000/bloodDonationForm";
 const userAccountsApi = "http://localhost:3000/userAccounts";
 const hospitalCalendarApi = "http://localhost:3000/hospitalCalendar";
 const storageApi = "http://localhost:3000/bloodTypesReserve";
+const calendarApi = "http://localhost:3000/hospitalCalendar";
 
 // Get DOM element
 const waitConfirmBlock = $(".hospital__waitConfirm");
 const storageBlock = $(".storage");
+const calendarBlock = $(".hospital__calendar");
 
 // Lấy ra dữ liệu form đăng ký từ API Json Server
 async function getDonationForms() {
@@ -21,6 +23,7 @@ async function getDonationForms() {
   }
 }
 
+// Lấy dữ liệu account từ server
 async function getAccountDatas() {
   try {
     const userDatas = await axios.get(userAccountsApi);
@@ -30,10 +33,20 @@ async function getAccountDatas() {
   }
 }
 
+// Lấy dữ liệu Storage từ server
 async function getStorageDatas() {
   try {
     const storageDatas = await axios.get(storageApi);
     return storageDatas;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function getCalendarDatas() {
+  try {
+    const calendarDatas = await axios.get(calendarApi);
+    return calendarDatas;
   } catch (err) {
     console.log(err);
   }
@@ -141,7 +154,83 @@ function renderStorages() {
 }
 
 // Hàm render Calendar
-function renderCalendar() {}
+function renderCalendar() {
+  getCalendarDatas()
+    .then((calendarDatas) => {
+      return calendarDatas.data.map((calendar) => {
+        return `
+          <li class="hospital__waitConfirm-item row" data-set="${calendar.id}">
+            <div class="info waitConfirm__info row col-12">
+                <div class="waitConfirm__info-item col-4">
+                    <label class="info__item-title">Fullname</label>
+                    <div name="fullname" class="info__item-desc">${calendar.fullname}</div>
+                </div>
+                <div class="waitConfirm__info-item col-2">
+                    <label class="info__item-title">Gender</label>
+                    <div name="gender" class="info__item-desc">${calendar.gender}</div>
+                </div>
+                <div class="waitConfirm__info-item col-2">
+                    <label class="info__item-title">Date of Birth</label>
+                    <div name="dateOfBirth" class="info__item-desc">${calendar.dateOfBirth}</div>
+                </div>
+                <div class="waitConfirm__info-item col-2">
+                    <label class="info__item-title">Phone Number</label>
+                    <div name="phonenumber" class="info__item-desc">${calendar.phonenumber}</div>
+                </div>
+                <div class="waitConfirm__info-item col-2">
+                    <label class="info__item-title">Bloodgroup</label>
+                    <div name="bloodgroup" class="info__item-desc">${calendar.bloodgroup}</div>
+                </div>
+            </div>
+            <div class="waitConfirm__more col-12">
+                <div class="waitConfirm__more-left">
+                    <div class="waitConfirm__more-item">
+                        <div class="more__item-name">Citizen ID:</div>
+                        <div name="citizenId" class="more__item-desc">${calendar.citizenId}</div>
+                    </div>
+                    <div class="waitConfirm__more-item">
+                        <div class="more__item-name">Email:</div>
+                        <div name="email" class="more__item-desc">${calendar.email}</div>
+                    </div>
+                    <div class="waitConfirm__more-item">
+                        <div class="more__item-name">Address:</div>
+                        <div name="address" class="more__item-desc">${calendar.address}</div>
+                    </div>
+                    <div class="waitConfirm__more-item">
+                        <div class="more__item-name">Occupation:</div>
+                        <div name="occupation" class="more__item-desc">${calendar.occupation}</div>
+                    </div>
+                    <div class="waitConfirm__more-item">
+                        <div class="more__item-name">Donated:</div>
+                        <div name="donated" class="more__item-desc">${calendar.donated}</div>
+                    </div>
+                    <div class="waitConfirm__more-item">
+                        <div class="more__item-name">Disease:</div>
+                        <div name="disease" class="more__item-desc">${calendar.disease}</div>
+                    </div>
+                    <div class="waitConfirm__more-item">
+                        <div class="more__item-name">Allergies:</div>
+                        <div name="allergies" class="more__item-desc">${calendar.allergies}</div>
+                    </div>
+                </div>
+                <div class="waitConfirm__more-right">
+                    <div class="waitConfirm__options">
+                        <div class="options-btn btn-done">Done</div>
+                        <div class="options-btn btn-cancel">Cancel</div>
+                    </div>
+                </div>
+            </div>
+          </li>
+          `;
+      });
+    })
+    .then((htmls) => {
+      if (calendarBlock) {
+        calendarBlock.innerHTML = htmls.join("");
+      }
+      app.handleEvents();
+    });
+}
 
 const app = {
   // Render tất cả các dữ liệu ra màn hình
@@ -150,6 +239,7 @@ const app = {
     if (storageBlock) {
       renderStorages();
     }
+    renderCalendar();
   },
 
   // Hàm xử lý tất cả các thao tác ở DOM
@@ -158,6 +248,8 @@ const app = {
     const approveBtns = $$(".btn-approve");
     const refuseBtns = $$(".btn-refuse");
     const avtBtn = $(".header__avt");
+    const doneBtns = $$(".btn-done");
+    const cancelBtns = $$(".btn-cancel");
 
     // Xử lý khi click vào avt, hiện ra options
     avtBtn.onclick = function () {
@@ -237,6 +329,11 @@ const app = {
         }
         refuseForm();
       };
+    });
+
+    // Xử lý khi click vào nút Done ở Calendar
+    doneBtns.forEach((doneBtn) => {
+      doneBtn.onclick = function () {};
     });
   },
 

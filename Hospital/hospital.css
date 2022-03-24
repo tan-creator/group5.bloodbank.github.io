@@ -113,12 +113,14 @@
   cursor: pointer;
 }
 
-.btn-approve {
+.btn-approve,
+.btn-done {
   background-color: var(--blue-light-color);
   color: var(--white-color);
 }
 
-.btn-refuse {
+.btn-refuse,
+.btn-cancel {
   border: 1px solid var(--primary-color);
 }
 
