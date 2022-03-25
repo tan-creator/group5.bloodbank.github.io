@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,16 +9,18 @@
     <link rel="icon" href="../assets/img/icon-tabbar.png">
 
     <!-- BOOTSTRAP -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
     <!-- FONT -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
     <link rel="stylesheet" href="../assets/font/fontawesome-free-6.0.0-web/css/all.min.css">
-    
+
     <!-- CSS -->
     <link rel="stylesheet" href="./donor.css">
 </head>
+
 <body>
     <div class="app">
         <!-- Header -->
@@ -100,8 +103,10 @@
                     </div>
                     <div class="center__header-title">
                         <h1>For Donors</h1>
-                        <h3>Thank you for being a blood donor. Below are resources to help you prepare for your upcoming donation.</h3>
-                        <p>If you have questions and were unable to find the information that you were looking for regarding your upcoming blood donation, <a href="">please contact us</a> .</p>
+                        <h3>Thank you for being a blood donor. Below are resources to help you prepare for your upcoming
+                            donation.</h3>
+                        <p>If you have questions and were unable to find the information that you were looking for
+                            regarding your upcoming blood donation, <a href="">please contact us</a> .</p>
                     </div>
                 </div>
                 <div class="center__content row">
@@ -165,16 +170,44 @@
             </div>
         </footer>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script>
+        // Import the functions you need from the SDKs you need
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyCHdXFvCFOCKHI7oj0CUyusIcoIVP4F7EY",
+            authDomain: "blood-bank-g5.firebaseapp.com",
+            databaseURL: "https://blood-bank-g5-default-rtdb.firebaseio.com",
+            projectId: "blood-bank-g5",
+            storageBucket: "blood-bank-g5.appspot.com",
+            messagingSenderId: "671833012751",
+            appId: "1:671833012751:web:767ace9310ce93c8d7417a"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
 
     <!-- axios -->
     <script src="../node_modules/axios/dist/axios.min.js"></script>
 
-     <!-- jQuery -->
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
-     <!-- BOOTSTRAP 4 JS -->
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script> 
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <!-- BOOTSTRAP 4 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous">
+    </script>
     <script src="./donor.js"></script>
+
 </body>
 </html>

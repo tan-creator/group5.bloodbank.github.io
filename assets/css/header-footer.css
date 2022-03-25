@@ -40,7 +40,7 @@
 }
 
 .header__right-item {
-  margin: 0 10px;
+  margin-left: 20px;
 }
 
 .header__right-search {
@@ -86,7 +86,6 @@
 .header__notification,
 .header__avt,
 .header__login {
-  margin: 10px;
   cursor: pointer;
 }
 
@@ -103,6 +102,7 @@
   font-size: 22px;
   text-decoration: none;
   color: var(--gray-color);
+  margin: 0;
 
   /* Chống bôi đen */
   -moz-user-select: none; /* Firefox */

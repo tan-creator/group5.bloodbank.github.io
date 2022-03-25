@@ -77,7 +77,7 @@
       "password_confirmation": "123123"
     },
     {
-      "fullname": "Pham Anh Tuan",
+      "fullname": "Nguyen Thanh Dat",
       "email": "phamanhtuan200420update@gmail.com",
       "password": "123456",
       "password_confirmation": "123456",
@@ -90,7 +90,7 @@
       "bloodgroup": "A+",
       "occupation": "321321321",
       "donated": "yes",
-      "disease": "no",
+      "disease": "yes",
       "allergies": "no"
     },
     {
@@ -231,6 +231,14 @@
       "donated": "yes",
       "disease": "yes",
       "allergies": "no"
+    },
+    {
+      "id": 1648137264240,
+      "fullname": "Nguyen Thanh Dat Test",
+      "email": "askdhaslkdhkl@gmail.com",
+      "password": "123123",
+      "password_confirmation": "123123",
+      "citizenId": "a1927830912"
     }
   ],
   "bloodDonationForm": [
@@ -320,6 +328,40 @@
       "disease": "no",
       "allergies": "no",
       "id": 1648102114505
+    },
+    {
+      "userId": 1648022950247,
+      "approve": true,
+      "fullname": "Le Trung Hieu 4",
+      "citizenId": "123123123123123",
+      "gender": "male",
+      "dateOfBirth": "2000-02-20",
+      "email": "letrunghieu@gmail.com",
+      "phonenumber": "91238129890",
+      "address": "Quang Nam",
+      "bloodgroup": "A+",
+      "occupation": "Hoc Sinh",
+      "donated": "yes",
+      "disease": "yes",
+      "allergies": "no",
+      "id": 1648107514234
+    },
+    {
+      "userId": 2,
+      "approve": true,
+      "fullname": "Nguyen Thanh Dat",
+      "citizenId": "12312321",
+      "gender": "male",
+      "dateOfBirth": "1111-11-11",
+      "email": "phamanhtuan200420update@gmail.com",
+      "phonenumber": "213123123",
+      "address": "weqwe123123",
+      "bloodgroup": "A+",
+      "occupation": "321321321",
+      "donated": "yes",
+      "disease": "yes",
+      "allergies": "no",
+      "id": 1648137216700
     }
   ]
 }

@@ -1,10 +1,6 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-// API
-const donorCenterContentApi = "http://localhost:3000/donorHomePageContent";
-const bloodTypesReserve = "http://localhost:3000/bloodTypesReserve";
-const userAccountsLink = "http://localhost:3000/userAccounts";
 const inputElements = Array.from(document.querySelectorAll(".inputElement"));
 const inputsNotEmail = [];
 const backSettingBtn = $(".setting__back-btn");
@@ -25,112 +21,129 @@ const editBtns = $$(".btn-edit");
 const saveBtns = $$(".btn-save");
 const cancelBtns = $$(".btn-cancel");
 const editMode = $$(".setting__form-right--editmode");
-const accountId = Number(localStorage.getItem("accountId"));
-
-// Hàm lấy ra giữ liệu tài khoản ở JSON Server
-async function getProfileAccount() {
-  try {
-    const users = await axios.get(userAccountsLink);
-    return users;
-  } catch (err) {
-    console.log(err);
-  }
-}
+const accountId = localStorage.getItem("accountId");
 
 // Hàm lấy dữ liệu gán vào Profile Account
-function renderProfileAccount() {
-  getProfileAccount().then((users) => {
-    users.data.forEach((user) => {
-      if (user.id === accountId) {
-        const userNameElement = $(".options__right-name");
-        const userEmailElement = $(".options__right-email");
+async function renderProfileAccount() {
+  const userNameElement = $(".options__right-name");
+  const userEmailElement = $(".options__right-email");
 
-        userNameElement.innerText = user.fullname;
-        userEmailElement.innerText = user.email;
-      }
-    });
-  });
-}
+  await db
+    .collection("userAccounts")
+    .get()
+    .then((queryAccounts) => {
+      queryAccounts.forEach((doc) => {
+        const user = doc.data();
 
-// Render setting account
-function renderSettingProfile() {
-  // Lấy ra tất cả các thẻ input
-  const inputElements = Array.from(document.querySelectorAll(".inputElement"));
-
-  getProfileAccount()
-    .then((users) => {
-      return users.data.find((user) => {
         if (user.id === accountId) {
-          return user;
+          userNameElement.innerText = user.fullname;
+          userEmailElement.innerText = user.email;
         }
       });
     })
-    .then((user) => {
-      inputElements.forEach((inputElement) => {
-        Object.keys(user).forEach((key) => {
-          if (inputElement.name === key) {
-            inputElement.value = user[key] === "undefined" ? "" : user[key];
-          }
-        });
-      });
+    .catch((err) => {
+      console.log(err);
     });
 }
 
-// Lấy dữ liệu từ API
-function getData(apiUrl) {
-  return fetch(apiUrl).then((res) => res.json());
+// Render setting account
+async function renderSettingProfile() {
+  // Lấy ra tất cả các thẻ input
+  const inputElements = Array.from(document.querySelectorAll(".inputElement"));
+
+  await db
+    .collection("userAccounts")
+    .get()
+    .then((queryAccounts) => {
+      queryAccounts.forEach((doc) => {
+        const user = doc.data();
+
+        if (user.id === accountId) {
+          inputElements.forEach((inputElement) => {
+            Object.keys(user).forEach((key) => {
+              if (inputElement.name === key) {
+                inputElement.value = user[key] === "undefined" ? "" : user[key];
+              }
+            });
+          });
+        }
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 // Hàm render content
 async function renderContent() {
-  // Lấy ra dữ liệu của Content gửi về từ API
-  const contents = await getData(donorCenterContentApi);
   const centerContent = $(".center__content");
+  const htmls = [];
 
-  let htmls = contents.map(
-    (content) => `
-    <div class="content__item col-4">
-      <a href="">
-          <img alt="" class="content__item-img" src="${content.image}">
-          <div class="content__item-title">${content.title}</div>
-      </a>
-    </div>
-  `
-  );
+  await db
+    .collection("donersContent")
+    .get()
+    .then((queryContent) => {
+      queryContent.forEach((docs) => {
+        const data = docs.data();
 
-  if (centerContent) return (centerContent.innerHTML = htmls.join(""));
+        let html = `
+        <div class="content__item col-4">
+          <a href="">
+              <img alt="" class="content__item-img" src="${data.image}">
+              <div class="content__item-title">${data.title}</div>
+          </a>
+        </div>
+      `;
+
+        htmls.push(html);
+        if (centerContent) {
+          centerContent.innerHTML = htmls.join("");
+        }
+      });
+    })
+    .catch((error) => {
+      console.log("Error getting documents: ", error);
+    });
+  app.handleEvents();
 }
 
 // Hàm render Kho dự trữ máu (Blood storage)
-async function renderBloodTypesReserve() {
-  // Hàm lấy ra dữ liệu của Content gửi về từ API
-  const bloodTypes = await getData(bloodTypesReserve);
-
+async function renderStorage() {
   // Lấy ra DOM Element chứa contents
   const storageList = $(".storage__list");
+  const htmls = [];
 
-  let htmls = bloodTypes.map(
-    (bloodType) => `
-    <div class="storage__list-item col-3">
-      <img src="../assets/img/Donor-img/blood-item.jpg" alt="">
-      <div class="storage__list-item--desc no-select">
-          <div class="item__bloodType">${bloodType.type}</div>
-          <div class="storage__list-item--amount">${bloodType.amount}ml</div>
-      </div>
-    </div>
-  `
-  );
+  await db
+    .collection("bloodStorage")
+    .get()
+    .then((queryStorage) => {
+      queryStorage.forEach((data) => {
+        const storage = data.data();
 
-  if (storageList) {
-    storageList.innerHTML = htmls.join("");
-  }
+        let html = `
+        <div class="storage__list-item col-3">
+          <img src="../assets/img/Donor-img/blood-item.jpg" alt="">
+          <div class="storage__list-item--desc no-select">
+              <div class="item__bloodType">${storage.type}</div>
+              <div class="storage__list-item--amount">${storage.amount}ml</div>
+          </div>
+        </div>
+      `;
+
+        htmls.push(html);
+        if (storageList) {
+          storageList.innerHTML = htmls.join("");
+        }
+      });
+    });
+  app.handleEvents();
 }
 
 const app = {
   // Hàm Render ra giao diện người dùng
   render: function () {
     renderContent();
-    renderBloodTypesReserve();
+    renderStorage();
     renderProfileAccount();
     renderSettingProfile();
   },
@@ -189,22 +202,36 @@ const app = {
           renderSettingProfile();
         };
       });
+    });
 
-      saveBtns.forEach((saveBtn, index) => {
-        const inputElement = inputsNotEmail[index];
-        const key = inputElement.name;
-        saveBtn.onclick = function () {
-          getProfileAccount()
-            .then((users) => {
-              return users.data.find((user) => user.id === accountId);
-            })
-            .then((user) => {
-              axios.patch(userAccountsLink + "/" + user.id, {
-                [key]: inputElement.value,
+    // Khi click vào nút Save
+    saveBtns.forEach((saveBtn, index) => {
+      const inputElement = inputsNotEmail[index];
+      const key = inputElement.name;
+      saveBtn.onclick = function () {
+        async function editInformationAccount() {
+          await db
+            .collection("userAccounts")
+            .get()
+            .then((queryInformation) => {
+              queryInformation.forEach((doc) => {
+                const information = doc.data();
+
+                if (information.id === accountId) {
+                  db.collection("userAccounts")
+                    .doc(information.id)
+                    .update({
+                      [key]: inputElement.value,
+                    });
+                }
               });
             });
-        };
-      });
+        }
+        editInformationAccount();
+        editMode[index].style.display = "none";
+        editBtns[index].style.display = "block";
+        inputElement.disabled = true;
+      };
     });
 
     // Click vào nút back ở page setting

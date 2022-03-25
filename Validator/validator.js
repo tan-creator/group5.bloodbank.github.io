@@ -2,10 +2,6 @@
 function Validator(options) {
   const formElement = document.querySelector(options.form);
   const selectorRules = {};
-  const userAccountsLink = "http://localhost:3000/userAccounts";
-  const bloodDonationLink = "http://localhost:3000/bloodDonationForm";
-
-  // Hàm gửi value vào cơ sở dữ liệu
 
   // Hàm lấy ra thẻ cha
   function getParent(element, selector) {
@@ -66,35 +62,68 @@ function Validator(options) {
     return !errorMessage;
   };
 
-  if (formElement) {
-    // Truyền các dữ liệu sẵn có của User đang đăng nhập và form Donations
-    if (options.form === ".donate__form") {
-      const accountId = Number(localStorage.getItem("accountId"));
+  // Truyền các dữ liệu sẵn có của User đang đăng nhập và form Donations
+  if (options.form === ".donate__form") {
+    const accountId = localStorage.getItem("accountId");
+    const submitBtn = $(".donate__form-submit");
 
-      async function getAccountDatas() {
-        return await axios.get(userAccountsLink);
-      }
+    let isRegistered = false;
 
-      getAccountDatas().then((res) => {
-        res.data.forEach((account) => {
-          if (account.id === accountId) {
-            options.rules.forEach((rule) => {
-              const inputElement = formElement.querySelector(rule.selector);
-              Object.keys(account).forEach((key) => {
-                if (
-                  key === inputElement.name &&
-                  inputElement.type !== "radio"
-                ) {
-                  inputElement.value =
-                    account[key] === "undefine" ? "" : account[key];
-                }
-              });
-            });
-          }
+    // Kiểm tra xem người dùng đã gửi phiếu đăng ký hiến máu chưa
+    // Nếu người dùng chưa đăng ký hiến máu, sẽ chạy luôn hàm renderDonationFormValue
+    async function getDonationForm() {
+      await db
+        .collection("donationForm")
+        .get()
+        .then((queryDonationForm) => {
+          queryDonationForm.forEach((doc) => {
+            const donationForm = doc.data();
+
+            if (donationForm.userId === accountId) {
+              isRegistered = true;
+            }
+          });
         });
-      });
+      if (isRegistered) {
+        submitBtn.classList.add("active");
+        submitBtn.innerText = "You have registered to donate blood";
+        submitBtn.disabled = true;
+        return;
+      }
+    }
+    getDonationForm();
+
+    // Render dữ liệu người dùng vào các ô input của Form hiến máu
+    async function renderDonationFormValue() {
+      await db
+        .collection("userAccounts")
+        .get()
+        .then((queryAccounts) => {
+          queryAccounts.forEach((doc) => {
+            const user = doc.data();
+            if (user.id === accountId) {
+              options.rules.forEach((rule) => {
+                const inputElement = formElement.querySelector(rule.selector);
+
+                Object.keys(user).forEach((key) => {
+                  if (
+                    key === inputElement.name &&
+                    inputElement.type !== "radio"
+                  ) {
+                    inputElement.value =
+                      user[key] === "undefine" ? "" : user[key];
+                  }
+                });
+              });
+            }
+          });
+        });
     }
 
+    renderDonationFormValue();
+  }
+
+  if (formElement) {
     // Lắng nghe sự kiện khi nhấn vào nút Submit form
     formElement.querySelector(options.submitBtn).onclick = function () {
       var isFormValid = true;
@@ -134,93 +163,122 @@ function Validator(options) {
           {});
 
           // Hàm submit Default
-          function submitDefault() {
+          async function submitDefault() {
+            // Lấy ra email của userAccount trong Database, để kiểm tra xem người dùng có sử dụng email đã sử dụng hay không
             const { email } = formValues;
-            const getAccountDatas = () => {
-              try {
-                return axios.get(userAccountsLink);
-              } catch (error) {
-                console.log(error);
-              }
-            };
-            getAccountDatas()
-              .then((res) => {
-                return res.data.some((account) => {
-                  return account.email === email;
+            let isValid = true;
+
+            // Lấy ra data user account ở DB
+            await db
+              .collection("userAccounts")
+              .get()
+              .then((queryAccounts) => {
+                queryAccounts.forEach((doc) => {
+                  const account = doc.data();
+
+                  // Kiểm tra xem email đã tồn tại hay chưa
+                  if (account.email === email) {
+                    isValid = false;
+                  }
                 });
-              })
-              .then((data) => {
-                if (data === false) {
-                  id = Date.now();
-                  axios.post(userAccountsLink, {
-                    id: id,
-                    ...formValues,
-                  });
-                  localStorage.setItem("accountId", id);
-                  return window.location.assign("../Donor_page/donor.html");
-                } else {
-                  const wrongMessage = formElement.querySelector(
-                    options.formWrong
-                  );
-                  wrongMessage.innerText = "Email already exists!";
-                }
               });
+
+            // Trong trường hợp email chưa tồn tại
+            if (isValid) {
+              await db
+                .collection("userAccounts")
+                .add({
+                  ...formValues,
+                })
+                .then((docRef) => {
+                  db.collection("userAccounts").doc(docRef.id).update({
+                    id: docRef.id,
+                  });
+                  localStorage.setItem("accountId", docRef.id);
+                })
+                .catch((error) => {
+                  console.error("Error adding document: ", error);
+                });
+
+              return window.location.assign("../Donor_page/donor.html");
+            } else {
+              const wrongMessage = formElement.querySelector(options.formWrong);
+              wrongMessage.innerText = "Email already exists!";
+            }
           }
 
           // Hàm Submit Form Donations Blood
-          function submitDonationsForm() {
-            const accountId = Number(localStorage.getItem("accountId"));
+          async function submitDonationsForm() {
+            const accountId = localStorage.getItem("accountId");
+            const { email, ...rest } = formValues;
+            const submitBtn = $(".donate__form-submit");
 
-            async function getAccountDatas() {
-              try {
-                const accounts = await axios.get(userAccountsLink);
-                return accounts;
-              } catch (err) {
-                console.log(err);
-              }
-            }
+            // Đưa dữ liệu vừa nhập ở Form cập nhật vào dữ liệu của User hiện tại
+            await db
+              .collection("userAccounts")
+              .get()
+              .then((queryAccounts) => {
+                queryAccounts.forEach((doc) => {
+                  const user = doc.data();
 
-            getAccountDatas().then((accounts) => {
-              accounts.data.forEach((account) => {
-                const { email, ...rest } = formValues;
-                if (account.id === accountId) {
-                  axios.patch(userAccountsLink + "/" + account.id, {
-                    ...rest,
-                  });
-                }
+                  if (user.id === accountId) {
+                    const accountRef = db
+                      .collection("userAccounts")
+                      .doc(user.id);
+                    return accountRef.update({
+                      ...rest,
+                    });
+                  }
+                });
               });
-            });
 
-            axios.post(bloodDonationLink, {
-              id: Date.now,
-              userId: accountId,
-              approve: false,
-              ...formValues,
-            });
+            // Đưa dữ liệu người dùng đăng ký form hiến máu vào DB
+            await db
+              .collection("donationForm")
+              .add({
+                ...formValues,
+                approve: false,
+                userId: accountId,
+              })
+              .catch((error) => {
+                console.error("Error adding document: ", error);
+              });
+
+            submitBtn.classList.add("active");
+            submitBtn.innerText = "You have registered to donate blood";
           }
 
           // Hàm Submit Login
-          function submitLogin() {
+          async function submitLogin() {
+            // Lấy ra value của người dùng nhập vào
             const { email, password } = formValues;
-            const getAccountDatas = () => {
-              try {
-                return axios.get(userAccountsLink);
-              } catch (error) {
-                console.log(error);
-              }
-            };
-            getAccountDatas().then((res) => {
-              res.data.forEach((account) => {
-                if (account.email === email && account.password === password) {
-                  localStorage.setItem("accountId", account.id);
-                  return window.location.assign("../Donor_page/donor.html");
-                }
+            let isSuccess = false;
+
+            // Lấy ra data user account ở DB
+            await db
+              .collection("userAccounts")
+              .get()
+              .then((queryAccounts) => {
+                queryAccounts.forEach((doc) => {
+                  const account = doc.data();
+
+                  // Kiểm tra xem người dùng đã nhập đúng tài khoản mật khẩu hay chưa
+                  if (
+                    account.email === email &&
+                    account.password === password
+                  ) {
+                    localStorage.setItem("accountId", account.id);
+                    isSuccess = true;
+                  }
+                });
               });
 
-              // Nếu người dùng nhập tài khoản hoặc mật khẩu không đúng, bắn ra thông báo nhập sai
+            if (isSuccess) {
+              window.location.assign("../Donor_page/donor.html");
+            } else {
               const wrongMessage = formElement.querySelector(options.formWrong);
               wrongMessage.innerText = "Wrong account or password !";
-            });
+            }
           }
 
           // Xử lý khi nhấn nút Submit, tùy trường hợp là Form đăng ký hoặc đăng nhập
