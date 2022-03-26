@@ -139,7 +139,7 @@ table {
   --gray-light-color: #e8ebed;
   --form-primary-color: #ec90a9;
   --navy-dark-color: #181821;
-  --done-color: green;
+  --done-color: rgb(53, 128, 53);
   --header-height: 64px;
   --font-size-small: 14px;
   --font-size-primary: 16px;

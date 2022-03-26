@@ -40,6 +40,16 @@
   cursor: pointer;
 }
 
+.hospital__waitConfirm-item.done {
+  background-color: var(--done-color);
+  color: var(--white-color);
+}
+
+.hospital__waitConfirm-item.cancel {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
 .hospital__waitConfirm-item:hover {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
