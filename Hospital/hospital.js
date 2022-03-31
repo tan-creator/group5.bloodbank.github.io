@@ -39,7 +39,7 @@ async function getStorageDatas() {
   }
 }
 
-// Render dữ liệu ra Page Hospital Oder
+// Render dữ liệu ra Page Hospital Order
 function renderOrderPage() {
   getDonationForms()
     .then((donationFormDatas) => {

@@ -163,6 +163,51 @@ html {
   -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
 }
 
+/* grid view */
+.col {
+  float: left;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.col-full {
+  width: 100%;
+}
+
+.col-eight_tenth {
+  width: 80%;
+}
+
+.col-fifth {
+  width: 20%;
+}
+
+.flex-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+/* SORT DOWN/UP ICON */
+
+.sort_down-icon {
+  position: relative;
+  top: 13px;
+  left: 11px;
+  transform: rotate(180deg);
+}
+.active-icon {
+  transform: rotate(0deg);
+  position: relative;
+  top: 7px;
+  left: 11px;
+}
+
 /* BASE FORM LOGIN-REGISTER */
 .main-login-register {
   align-items: center;

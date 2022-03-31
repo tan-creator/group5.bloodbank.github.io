@@ -1,0 +1,165 @@
+/* MAIN */
+.main {
+    margin-top: var(--header-height);
+    display: flex;
+    min-height: 100vh;
+    padding-top: 20px;
+    position: relative;
+}
+
+.main__center {
+    width: 100%;
+    margin-left: 96px;
+}
+
+/******************************************** ~ LIST ITEM ~ ********************************************/
+.list__item-title {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    line-height: 50px;
+}
+
+.list__item-title h3 {
+    display: block;
+    color: var(--primary-color);
+    font-size: 36px;
+    font-weight: 700;
+    font-family: "Times New Roman", Times, serif;
+}
+
+.list__item-content {
+    border: 1px solid #666;
+    border-radius: 6px;
+    margin-top: -1px;
+    margin-bottom: 20px;
+}
+
+.list__item-title_bar {
+    padding: 0 8px;
+    font-size: 18px;
+    line-height: 40px;
+    background-color: #FF2400;
+    color: white;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+}
+
+.list__item-units {
+    padding: 0 8px;
+    border-top: 1px solid #111;
+    line-height: 30px;
+}
+
+.list__item-id {
+    width: 4%;
+    text-align: center;  
+}
+
+.list__item-group {
+    width: 45%;
+    text-align: center;  
+}
+
+.list__item-amount {
+    width: 45%;
+    text-align: center;  
+}
+
+.list__item-checkbox {
+    width: 1%;
+    display: flex;
+    justify-content: center; 
+}
+
+.list__item-name {
+    width: 15%;
+    text-align: start;  
+}
+
+.list__item-gender {
+    width: 6%;
+    text-align: center;  
+}
+
+.list__item-email {
+    width: 20%;
+    text-align: center;  
+}
+
+.list__item-password {
+    width: 10%;
+    text-align: center;  
+}
+
+.list__item-phone_number {
+    width: 12%;
+    text-align: center;  
+}
+
+.list__item-work {
+    width: 10%;
+    text-align: center;  
+}
+
+.list__item-group_user {
+    width: 10%;
+    text-align: center;
+}
+
+.list__item-blood-amount {
+    width: 3%;
+    text-align: center;
+}
+/******************************************** ~ LIST CONTROL ~ ********************************************/
+.list__control-select {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 35px;
+    border: 1px solid #888;
+    background-color: #FF2400;
+    color: white;
+    cursor: pointer;
+}
+
+.list__control-select-title {
+    display: block;
+    margin-left: 10px;
+    padding: 2px 0 0 0;
+}
+
+.list__control-select-icon {
+    border-left: 1px solid #888;
+    height: 34px;
+    width: 34px;
+}
+
+.list__control-form {
+    flex-direction: column;
+    height: 120px;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid #ccc;
+    background-color: #ddd;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.control-btn {
+    border: 1px solid #666;
+    border-radius: 3px;
+    width: 202px;
+    background-color: #FF2400;
+    color: #fff;
+    height: 25px;
+}
+
+.list__control-id {
+    width: 100%;
+    margin-left: 8px;
+}
+
+
